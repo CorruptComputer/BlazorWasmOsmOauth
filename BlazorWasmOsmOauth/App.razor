@@ -1,4 +1,7 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment HostEnvironment
+
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
@@ -10,3 +13,11 @@
     </NotFound>
 </Router>
 
+@if(HostEnvironment.IsDevelopment())
+{
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+}
+else 
+{
+    <script>navigator.serviceWorker.register('service-worker.published.js');</script>
+}
