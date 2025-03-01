@@ -1,0 +1,47 @@
+name: Build Client Artifact
+
+on:
+  push:
+    branches:
+      - 'develop'
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  client:
+    name: Build Client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+  
+      - name: Print .NET version and SDKs
+        shell: bash
+        run: |
+          dotnet --version
+          dotnet --list-sdks
+  
+      - name: Restore Tools
+        run: |
+          cd BlazorWasmOsmOauth
+          dotnet workload restore
+          cd ../..
+
+      - name: Build
+        run: |
+          cd BlazorWasmOsmOauth
+          dotnet publish BlazorWasmOsmOauth.csproj --configuration Release --property PublishDir=../../publish/
+          cd ../..
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-client
+          path: ./publish

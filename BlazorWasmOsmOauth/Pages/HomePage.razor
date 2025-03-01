@@ -1,0 +1,18 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+
+<AuthorizeView>
+    <Authorized>
+        <div>
+            <FluentTextField Name="Display Name" Label="Display Name" Disabled @bind-Value="LoggedInUserDisplayName" />
+            <FluentTextField Name="Changeset Count" Label="Changeset Count" Disabled @bind-Value="LoggedInUserChangesetCount" />
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div>
+            <p></p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
