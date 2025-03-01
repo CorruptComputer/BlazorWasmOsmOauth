@@ -16,6 +16,7 @@ runs:
         dotnet --list-sdks
 
     - name: Restore Tools
+      shell: bash
       run: |
         cd BlazorWasmOsmOauth
         dotnet workload restore
