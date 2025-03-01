@@ -12,12 +12,3 @@
         </LayoutView>
     </NotFound>
 </Router>
-
-@if(HostEnvironment.IsDevelopment())
-{
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
-}
-else 
-{
-    <script>navigator.serviceWorker.register('service-worker.published.js');</script>
-}
