@@ -1,6 +1,7 @@
 using BlazorWasmOsmOauth.Infrastructure;
 using BlazorWasmOsmOauth.Models;
 using BlazorWasmOsmOauth.Osm;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace BlazorWasmOsmOauth.Pages;
 
@@ -11,7 +12,11 @@ namespace BlazorWasmOsmOauth.Pages;
 /// <param name="config">The application configuration</param>
 /// <param name="osmClient">The OSM API client</param>
 /// <param name="authenticationStateProvider">The authentication state provider</param>
-public partial class AuthCompletePage(NavigationManager navManager, AppConfig config, OsmApiClient osmClient, AppAuthenticationStateProvider authenticationStateProvider) : ComponentBase
+/// <param name="localStorageService"></param>
+/// <param name="dialogService"></param>
+public partial class AuthCompletePage(NavigationManager navManager, AppConfig config, OsmApiClient osmClient,
+    AppAuthenticationStateProvider authenticationStateProvider, LocalStorageService localStorageService, IDialogService dialogService)
+    : ComponentBase
 {
     /// <summary>
     ///   The code supplied by OSM.
@@ -25,7 +30,7 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
     /// </summary>
     [Parameter]
     [SupplyParameterFromQuery(Name = "state")]
-    public string? State { get; set; }
+    public Guid? State { get; set; }
 
     /// <summary>
     ///   Event for when the page is loaded
@@ -36,20 +41,21 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
         await base.OnInitializedAsync();
     }
 
-    /// <summary>
-    ///   Event for when the page is changed without a full site reload
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await GetToken();
-        await base.OnParametersSetAsync();
-    }
-
     private async Task GetToken()
     {
         if (string.IsNullOrWhiteSpace(Code))
         {
+            navManager.NavigateTo("/");
+            return;
+        }
+
+        if (State == null
+            || State != await localStorageService.GetItemAsync<Guid>(LocalStorageService.OsmStateKey, CancellationToken.None))
+        {
+            // Wait for the dialog to close, then redirect to the home page
+            IDialogReference dialogReference = await dialogService.ShowErrorAsync("The state value supplied by OSM is invalid.", title: "Invalid State");
+            await dialogReference.Result;
+
             navManager.NavigateTo("/");
             return;
         }

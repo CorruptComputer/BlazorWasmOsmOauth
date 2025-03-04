@@ -15,6 +15,11 @@ public sealed class LocalStorageService(IJSRuntime jsRuntime)
     public const string CurrentUserKey = "current-user-token";
 
     /// <summary>
+    ///   The localstorage key for the osm state value, used to prevent CSRF attacks
+    /// </summary>
+    public const string OsmStateKey = "osm-state";
+
+    /// <summary>
     ///   Gets the specified value from localstorage
     /// </summary>
     /// <param name="key"></param>
