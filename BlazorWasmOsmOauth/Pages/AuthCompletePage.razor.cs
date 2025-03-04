@@ -26,7 +26,10 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
     public string? Code { get; set; }
 
     /// <summary>
-    ///   The state supplied by OSM, used to prevent CSRF attacks.
+    ///   Hopefully the same state token that was provided to OSM when the user was redirected to the OSM login page, used to prevent CSRF attacks.
+    ///   If this is not the same, or is missing, then we should not trust the code supplied by OSM.
+    ///   
+    ///   This can be any string, though for sake of simplicity this example uses a GUID.
     /// </summary>
     [Parameter]
     [SupplyParameterFromQuery(Name = "state")]
