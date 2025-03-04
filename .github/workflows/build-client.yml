@@ -23,8 +23,8 @@ jobs:
       - name: Build
         run: |
           cd BlazorWasmOsmOauth
-          dotnet publish BlazorWasmOsmOauth.csproj --configuration Release --property PublishDir=../../publish/
-          cd ../..
+          dotnet publish BlazorWasmOsmOauth.csproj --configuration Release --property PublishDir=../publish/
+          cd ..
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
