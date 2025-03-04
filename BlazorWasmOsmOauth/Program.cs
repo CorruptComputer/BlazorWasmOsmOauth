@@ -59,13 +59,13 @@ public static class Program
 
         builder.Services.AddSingleton(config);
 
-        builder.Services.AddHttpClient(OsmApiClient.HTTP_API_CLIENT_NAME, client =>
+        builder.Services.AddHttpClient(OsmApiClient.HttpApiClientName, client =>
             {
                 client.BaseAddress = new(config.OsmApiBaseUrl);
             })
             .AddHttpMessageHandler<UnauthorizedDelegatingHandler>();
 
-        builder.Services.AddHttpClient(OsmApiClient.HTTP_AUTH_CLIENT_NAME, client =>
+        builder.Services.AddHttpClient(OsmApiClient.HttpAuthClientName, client =>
             {
                 client.BaseAddress = new(config.OsmAuthBaseUrl);
             })

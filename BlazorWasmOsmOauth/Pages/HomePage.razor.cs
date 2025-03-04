@@ -8,8 +8,7 @@ namespace BlazorWasmOsmOauth.Pages;
 /// </summary>
 /// <param name="osmClient"></param>
 /// <param name="authenticationStateProvider"></param>
-/// <param name="logger"></param>
-public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProvider authenticationStateProvider, ILogger<AuthCompletePage> logger) : ComponentBase
+public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProvider authenticationStateProvider) : ComponentBase
 {
     private string LoggedInUserDisplayName { get; set; } = string.Empty;
     private string LoggedInUserChangesetCount { get; set; } = string.Empty;
@@ -19,7 +18,6 @@ public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProv
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        logger.LogInformation("HomePage.OnInitializedAsync()");
         await GetLoggedInUserProfile();
         await base.OnInitializedAsync();
     }
@@ -30,7 +28,6 @@ public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProv
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        logger.LogInformation("HomePage.OnParametersSetAsync()");
         await GetLoggedInUserProfile();
         await base.OnParametersSetAsync();
     }
@@ -49,7 +46,7 @@ public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProv
         if (userDetails != null)
         {
             LoggedInUserDisplayName = userDetails.User?.DisplayName ?? string.Empty;
-            LoggedInUserChangesetCount = userDetails.User?.ChangesetStats?.Count.ToString() ?? string.Empty;
+            LoggedInUserChangesetCount = $"{userDetails.User?.ChangesetStats?.Count}";
         }
     }
 }

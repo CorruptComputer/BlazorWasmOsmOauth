@@ -11,8 +11,7 @@ namespace BlazorWasmOsmOauth.Pages;
 /// <param name="config">The application configuration</param>
 /// <param name="osmClient">The OSM API client</param>
 /// <param name="authenticationStateProvider">The authentication state provider</param>
-/// <param name="logger">The logger</param>
-public partial class AuthCompletePage(NavigationManager navManager, AppConfig config, OsmApiClient osmClient, AppAuthenticationStateProvider authenticationStateProvider, ILogger<AuthCompletePage> logger) : ComponentBase
+public partial class AuthCompletePage(NavigationManager navManager, AppConfig config, OsmApiClient osmClient, AppAuthenticationStateProvider authenticationStateProvider) : ComponentBase
 {
     /// <summary>
     ///   The code supplied by OSM.
@@ -33,7 +32,6 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        logger.LogInformation("AuthCompletePage.OnInitializedAsync():\nCode: {Code}\nState: {State}", Code, State);
         await GetToken();
         await base.OnInitializedAsync();
     }
@@ -44,7 +42,6 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        logger.LogInformation("AuthCompletePage.OnParametersSetAsync():\nCode: {Code}\nState: {State}", Code, State);
         await GetToken();
         await base.OnParametersSetAsync();
     }

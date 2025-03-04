@@ -14,16 +14,16 @@ public class OsmApiClient(IHttpClientFactory httpClientFactory)
     /// <summary>
     ///   The name of the api client as registered in the App startup.
     /// </summary>
-    public const string HTTP_API_CLIENT_NAME = "OsmApiClient";
+    public const string HttpApiClientName = "OsmApiClient";
 
     /// <summary>
     ///   The name of the auth client as registered in the App startup.
     /// </summary>
-    public const string HTTP_AUTH_CLIENT_NAME = "OsmAuthClient";
+    public const string HttpAuthClientName = "OsmAuthClient";
 
-    private readonly HttpClient _apiClient = httpClientFactory.CreateClient(HTTP_API_CLIENT_NAME);
+    private readonly HttpClient _apiClient = httpClientFactory.CreateClient(HttpApiClientName);
 
-    private readonly HttpClient _authClient = httpClientFactory.CreateClient(HTTP_AUTH_CLIENT_NAME);
+    private readonly HttpClient _authClient = httpClientFactory.CreateClient(HttpAuthClientName);
 
     /// <summary>
     ///   Get the user token from the OSM API, using the code from the OAuth2 flow. Or null if the request fails.

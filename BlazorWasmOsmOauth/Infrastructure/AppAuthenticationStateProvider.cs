@@ -31,7 +31,7 @@ public class AppAuthenticationStateProvider(LocalStorageService localStorageServ
     /// <returns></returns>
     public async Task SetCurrentUserAsync(TokenResponse currentUser, CancellationToken cancellationToken)
     {
-        await localStorageService.SetItemAsync(LocalStorageService.CURRENT_USER_KEY, currentUser, cancellationToken);
+        await localStorageService.SetItemAsync(LocalStorageService.CurrentUserKey, currentUser, cancellationToken);
 
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
@@ -43,7 +43,7 @@ public class AppAuthenticationStateProvider(LocalStorageService localStorageServ
     /// <returns></returns>
     public async Task ClearCurrentUserAsync(CancellationToken cancellationToken)
     {
-        await localStorageService.RemoveItemAsync(LocalStorageService.CURRENT_USER_KEY, cancellationToken);
+        await localStorageService.RemoveItemAsync(LocalStorageService.CurrentUserKey, cancellationToken);
 
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
@@ -55,6 +55,6 @@ public class AppAuthenticationStateProvider(LocalStorageService localStorageServ
     /// <returns></returns>
     public Task<TokenResponse?> GetCurrentUserAsync(CancellationToken cancellationToken)
     {
-        return localStorageService.GetItemAsync<TokenResponse>(LocalStorageService.CURRENT_USER_KEY, cancellationToken);
+        return localStorageService.GetItemAsync<TokenResponse>(LocalStorageService.CurrentUserKey, cancellationToken);
     }
 }

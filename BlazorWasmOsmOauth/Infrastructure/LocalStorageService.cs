@@ -12,7 +12,7 @@ public sealed class LocalStorageService(IJSRuntime jsRuntime)
     /// <summary>
     ///   The localstorage key for the current users token
     /// </summary>
-    public const string CURRENT_USER_KEY = "current-user-token";
+    public const string CurrentUserKey = "current-user-token";
 
     /// <summary>
     ///   Gets the specified value from localstorage

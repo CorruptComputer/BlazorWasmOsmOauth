@@ -1,18 +1,19 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Blazor WASM OSM Oauth2 Example</PageTitle>
 
 
 <AuthorizeView>
     <Authorized>
         <div>
+            <p>Your account info:</p>
             <FluentTextField Name="Display Name" Label="Display Name" Disabled @bind-Value="LoggedInUserDisplayName" />
             <FluentTextField Name="Changeset Count" Label="Changeset Count" Disabled @bind-Value="LoggedInUserChangesetCount" />
         </div>
     </Authorized>
     <NotAuthorized>
         <div>
-            <p></p>
+            <p>This is an example of Oauth2 login using <a href="https://www.openstreetmap.org/">OSM</a>. This example is only made to work with the dev instance of OSM, however it would be trivial to update it to use the main site.</p>
         </div>
     </NotAuthorized>
 </AuthorizeView>
