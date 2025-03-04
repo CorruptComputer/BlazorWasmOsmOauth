@@ -7,7 +7,10 @@ namespace BlazorWasmOsmOauth;
 public partial class App(NavigationManager navManager)
 {
     /// <summary>
-    ///   Redirect from localhost to 127.0.0.1, as OSM only allows the latter
+    ///   Redirect from localhost to 127.0.0.1, as OSM only allows the latter.
+    ///   
+    ///   Sadly this is a limitation of both OSM and Aspire,
+    ///   as Aspire replaces 127.0.0.1 with localhost in the URL when running locally.
     /// </summary>
     protected override void OnInitialized()
     {
