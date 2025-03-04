@@ -65,8 +65,6 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
 
         TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId, config.ClientSecret);
 
-        Console.WriteLine(tokenResp);
-
         if (tokenResp != null)
         {
             await authenticationStateProvider.SetCurrentUserAsync(tokenResp, CancellationToken.None);

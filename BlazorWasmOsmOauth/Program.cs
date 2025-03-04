@@ -37,7 +37,6 @@ public static class Program
         builder.Services.AddTransient<UnauthorizedDelegatingHandler>();
 
         string thisHost = new Uri(builder.HostEnvironment.BaseAddress).Authority;
-        Console.WriteLine($"Host: {thisHost}");
 
         AppConfig? config = builder.Configuration.Get<AppConfig>();
 

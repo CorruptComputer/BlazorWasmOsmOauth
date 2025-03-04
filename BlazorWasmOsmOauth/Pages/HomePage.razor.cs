@@ -41,7 +41,6 @@ public partial class HomePage(OsmApiClient osmClient, AppAuthenticationStateProv
         }
 
         UserDetailsResponse? userDetails = await osmClient.GetUserDetailsAsync(token);
-        Console.WriteLine(userDetails);
 
         if (userDetails != null)
         {
