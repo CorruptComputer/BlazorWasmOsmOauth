@@ -5,7 +5,21 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      Web:
+        patterns:
+          - "Microsoft.AspNetCore.Components.WebAssembly"
+          - "Microsoft.AspNetCore.Components.WebAssembly.Authentication"
+          - "Microsoft.FluentUI.AspNetCore.Components"
+          - "Microsoft.FluentUI.AspNetCore.Components.Icons"
+      AppHost:
+        patterns:
+          - "Aspire.Hosting.AppHost"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      Actions:
+        patterns:
+          - "*"
