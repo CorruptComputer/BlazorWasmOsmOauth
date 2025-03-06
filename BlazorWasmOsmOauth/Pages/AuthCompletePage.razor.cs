@@ -63,7 +63,7 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
             return;
         }
 
-        TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId, config.ClientSecret);
+        TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId);
 
         if (tokenResp != null)
         {

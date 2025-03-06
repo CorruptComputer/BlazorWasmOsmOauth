@@ -18,11 +18,6 @@ public sealed class AppConfig
     public string ClientId { get; set; } = string.Empty;
 
     /// <summary>
-    ///   Client Secret from OSM to use, get from: https://www.openstreetmap.org/oauth2/applications
-    /// </summary>
-    public string ClientSecret { get; set; } = string.Empty;
-
-    /// <summary>
     ///   Base URL for the OSM OAuth API
     /// </summary>
     public string OsmAuthBaseUrl { get; set; } = string.Empty;

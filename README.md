@@ -2,10 +2,14 @@
 
 Example setup for Oauth with Blazor Webassembly.
 
-On the OSM side you'll want to configure the 'Redirect URI' to:
+When creating the Application in OSM make sure to uncheck the 'Confidential application?" box.
+
+Also configure the 'Redirect URI' to:
 - `http(s)://<domain or 127.0.0.1>/oauth2-redirect`
 
-The OSM Client ID and Client Secret are set via one of the following: 
+Since this is an entirely client-side app there can be no client secret, so when OSM tells it to you just ignore that and copy the client ID.
+
+The OSM Client ID is set via one of the following: 
 - `BlazorWasmOsmOauth/wwwroot/appsettings.Development.json`
 - `BlazorWasmOsmOauth/wwwroot/appsettings.Production.json`
 
