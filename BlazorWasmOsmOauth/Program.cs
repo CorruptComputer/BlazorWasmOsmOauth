@@ -59,7 +59,7 @@ public static class Program
 
         config.SourceRevisionId = Assembly.GetEntryAssembly()?
                                           .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                                            // For example: 0.0.1+b9d1873a
+                                          // For example: 0.0.1+b9d1873a
                                           ?.InformationalVersion.Split('+')[1] ?? "ERROR";
 
         builder.Services.AddSingleton(config);

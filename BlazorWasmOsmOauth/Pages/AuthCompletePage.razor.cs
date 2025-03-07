@@ -52,13 +52,8 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
             return;
         }
 
-        if (State == null
-            || State != await localStorageService.GetItemAsync<Guid>(LocalStorageService.OsmStateKey, CancellationToken.None))
+        if (!await ValidateState())
         {
-            // Wait for the dialog to close, then redirect to the home page
-            IDialogReference dialogReference = await dialogService.ShowErrorAsync("The state value supplied by OSM is invalid.", title: "Invalid State");
-            await dialogReference.Result;
-
             navManager.NavigateTo("/");
             return;
         }
@@ -77,11 +72,36 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
 
         TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId, pkce);
 
-        if (tokenResp != null)
+        if (tokenResp == null)
         {
-            await authenticationStateProvider.SetCurrentUserAsync(tokenResp, CancellationToken.None);
+            // Wait for the dialog to close, then redirect to the home page
+            IDialogReference dialogReference = await dialogService.ShowErrorAsync("The OSM login failed.", title: "Login failed");
+            await dialogReference.Result;
+
+            navManager.NavigateTo("/");
+            return;
         }
 
+        await authenticationStateProvider.SetCurrentUserAsync(tokenResp, CancellationToken.None);
+
         navManager.NavigateTo("/");
+    }
+
+    private async Task<bool> ValidateState() 
+    {
+        Guid? stateFromStorage = await localStorageService.GetItemAsync<Guid>(LocalStorageService.OsmStateKey, CancellationToken.None);
+        if (State == null
+            || stateFromStorage == null
+            || State != stateFromStorage)
+        {
+            // Wait for the dialog to close, then return
+            IDialogReference dialogReference = await dialogService.ShowErrorAsync("The state value supplied by OSM is invalid.", title: "Invalid State");
+            await dialogReference.Result;
+
+            
+            return false;
+        }
+
+        return true;
     }
 }

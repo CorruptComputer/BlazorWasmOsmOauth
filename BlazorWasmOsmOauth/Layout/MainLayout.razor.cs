@@ -18,6 +18,9 @@ public partial class MainLayout(AppConfig config, NavigationManager navManager, 
 
     private async Task GoToLogin()
     {
+        // Note: This is a simple example, in a real application you'd probably want 
+        //       to use a more secure method of generating these values.
+
         Guid state = Guid.NewGuid();
         await localStorageService.SetItemAsync(LocalStorageService.OsmStateKey, state, CancellationToken.None);
 
