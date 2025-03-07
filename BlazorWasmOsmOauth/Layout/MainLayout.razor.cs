@@ -13,6 +13,8 @@ namespace BlazorWasmOsmOauth.Layout;
 public partial class MainLayout(AppConfig config, NavigationManager navManager, AppAuthenticationStateProvider appAuthenticationStateProvider,
     LocalStorageService localStorageService) : LayoutComponentBase
 {
+    private string SourceRevisionId => config.SourceRevisionId;
+    
     private async Task GoToLogin()
     {
         Guid state = Guid.NewGuid();

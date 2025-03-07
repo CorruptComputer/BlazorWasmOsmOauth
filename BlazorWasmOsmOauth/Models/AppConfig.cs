@@ -27,4 +27,10 @@ public sealed class AppConfig
     /// </summary>
     [JsonIgnore]
     public string RedirectUri { get; set; } = string.Empty;
+
+    /// <summary>
+    ///   The 8 character git commit hash of the source code used to build this application, or 'localdev' if running locally.
+    /// </summary>
+    [JsonIgnore]
+    public string SourceRevisionId { get; set; } = string.Empty;
 }

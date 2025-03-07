@@ -1,26 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
+    <!-- Build info -->
     <TargetFramework>net9.0</TargetFramework>
-    <Version>0.0.1</Version>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
     <AnalysisMode>Recommended</AnalysisMode>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PublishTrimmed>false</PublishTrimmed>
+    
 
+    <!-- Assembly info -->
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionSuffix>$(SourceRevisionId)</VersionSuffix>
+    <Authors>Nickolas Gupton</Authors>
+    <RepositoryUrl>https://github.com/CorruptComputer/BlazorWasmOsmOauth</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+    <SourceControlInformationFeatureSupported>true</SourceControlInformationFeatureSupported>
+    <SourceRevisionId>localdev</SourceRevisionId>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-
-    <!-- Recommended for mobile browsers:
-    https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-8.0#decrease-maximum-heap-size-for-some-mobile-device-browsers -->
+    <!-- Recommended for mobile browsers: https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-8.0#decrease-maximum-heap-size-for-some-mobile-device-browsers -->
     <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(Configuration) == 'Debug'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+  <!-- If building in release mode, replace the SourceRevisionId with the 8 character git commit hash -->
+  <Target Condition="$(Configuration) == 'Release'" Name="SetSourceRevisionId" BeforeTargets="InitializeSourceControlInformation">
+      <Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8" ConsoleToMSBuild="True" IgnoreExitCode="False">
+          <Output PropertyName="SourceRevisionId" TaskParameter="ConsoleOutput" />
+      </Exec>
+  </Target>
 
   <ItemGroup Condition="$(Configuration) == 'Debug'">
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.2" PrivateAssets="all" />

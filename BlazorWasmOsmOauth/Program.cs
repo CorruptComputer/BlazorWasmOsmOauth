@@ -1,3 +1,4 @@
+using System.Reflection;
 using BlazorWasmOsmOauth.Infrastructure;
 using BlazorWasmOsmOauth.Models;
 using BlazorWasmOsmOauth.Osm;
@@ -55,6 +56,11 @@ public static class Program
         }
 
         config.RedirectUri = $"http{(thisHost == "127.0.0.1:8123" ? string.Empty : "s")}://{thisHost}/oauth2-redirect";
+
+        config.SourceRevisionId = Assembly.GetEntryAssembly()?
+                                          .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                                            // For example: 0.0.1+b9d1873a
+                                          ?.InformationalVersion.Split('+')[1] ?? "ERROR";
 
         builder.Services.AddSingleton(config);
 
