@@ -29,12 +29,13 @@ public class OsmApiClient(IHttpClientFactory httpClientFactory)
     ///   Get the user token from the OSM API, using the code from the OAuth2 flow. Or null if the request fails.
     /// </summary>
     /// <returns></returns>
-    public async Task<TokenResponse?> GetTokenAsync(string code, string redirectUri, string clientId)
+    public async Task<TokenResponse?> GetTokenAsync(string code, string redirectUri, string clientId, string pkce)
     {
         string queryStr = "grant_type=authorization_code"
                             + $"&code={HttpUtility.UrlEncode(code)}"
                             + $"&redirect_uri={HttpUtility.UrlEncode(redirectUri)}"
-                            + $"&client_id={HttpUtility.UrlEncode(clientId)}";
+                            + $"&client_id={HttpUtility.UrlEncode(clientId)}"
+                            + $"&code_verifier={HttpUtility.UrlEncode(pkce)}";
 
         HttpResponseMessage response = await _authClient.PostAsync($"/oauth2/token?{queryStr}", new StringContent(string.Empty, Encoding.UTF8, "application/x-www-form-urlencoded"));
 

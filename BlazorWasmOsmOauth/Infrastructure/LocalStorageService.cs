@@ -20,6 +20,12 @@ public sealed class LocalStorageService(IJSRuntime jsRuntime)
     public const string OsmStateKey = "osm-state";
 
     /// <summary>
+    ///   The localstorage key for the osm pkce value, used to prevent MITM attacks
+    ///   See: https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-dead#does-the-authorization-code-flow-make-browser-based-apps-totally-secure
+    /// </summary>
+    public const string OsmPkceKey = "osm-pkce";
+
+    /// <summary>
     ///   Gets the specified value from localstorage
     /// </summary>
     /// <param name="key"></param>

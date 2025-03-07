@@ -63,7 +63,19 @@ public partial class AuthCompletePage(NavigationManager navManager, AppConfig co
             return;
         }
 
-        TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId);
+        string? pkce = await localStorageService.GetItemAsync<string>(LocalStorageService.OsmPkceKey, CancellationToken.None);
+
+        if (string.IsNullOrWhiteSpace(pkce))
+        {
+            // Wait for the dialog to close, then redirect to the home page
+            IDialogReference dialogReference = await dialogService.ShowErrorAsync("The PKCE value is missing.", title: "Missing PKCE");
+            await dialogReference.Result;
+
+            navManager.NavigateTo("/");
+            return;
+        }
+
+        TokenResponse? tokenResp = await osmClient.GetTokenAsync(Code, config.RedirectUri, config.ClientId, pkce);
 
         if (tokenResp != null)
         {

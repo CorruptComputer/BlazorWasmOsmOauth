@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using BlazorWasmOsmOauth.Infrastructure;
 using BlazorWasmOsmOauth.Models;
 
@@ -14,11 +15,18 @@ public partial class MainLayout(AppConfig config, NavigationManager navManager, 
     LocalStorageService localStorageService) : LayoutComponentBase
 {
     private string SourceRevisionId => config.SourceRevisionId;
-    
+
     private async Task GoToLogin()
     {
         Guid state = Guid.NewGuid();
         await localStorageService.SetItemAsync(LocalStorageService.OsmStateKey, state, CancellationToken.None);
+
+        Guid pkce1 = Guid.NewGuid();
+        Guid pkce2 = Guid.NewGuid();
+        string pkce = pkce1.ToString("N") + pkce2.ToString("N");
+        await localStorageService.SetItemAsync(LocalStorageService.OsmPkceKey, pkce, CancellationToken.None);
+
+        byte[] pkceSha256 = SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(pkce));
 
         navManager.NavigateTo(
             navManager.GetUriWithQueryParameters($"{config.OsmAuthBaseUrl}/oauth2/authorize",
@@ -28,7 +36,9 @@ public partial class MainLayout(AppConfig config, NavigationManager navManager, 
                     { "client_id", config.ClientId },
                     { "redirect_uri", config.RedirectUri },
                     { "scope", "read_prefs" },
-                    { "state", state }
+                    { "state", state },
+                    { "code_challenge", Convert.ToBase64String(pkceSha256).Replace('+', '-').Replace('/', '_').TrimEnd('=') },
+                    { "code_challenge_method", "S256" }
                 }.AsReadOnly()
             )
         );
