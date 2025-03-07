@@ -15,10 +15,9 @@
     <!-- Assembly info -->
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix>$(SourceRevisionId)</VersionSuffix>
-    <Authors>Nickolas Gupton</Authors>
+    <Authors>https://github.com/CorruptComputer/BlazorWasmOsmOauth/graphs/contributors</Authors>
     <RepositoryUrl>https://github.com/CorruptComputer/BlazorWasmOsmOauth</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
     <SourceControlInformationFeatureSupported>true</SourceControlInformationFeatureSupported>
     <SourceRevisionId>localdev</SourceRevisionId>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
