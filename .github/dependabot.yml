@@ -9,13 +9,13 @@ updates:
       Web:
         patterns:
           - "Microsoft.AspNetCore.Components.WebAssembly"
+          - "Microsoft.AspNetCore.Components.WebAssembly.DevServer"
           - "Microsoft.AspNetCore.Components.WebAssembly.Authentication"
           - "Microsoft.FluentUI.AspNetCore.Components"
           - "Microsoft.FluentUI.AspNetCore.Components.Icons"
       AppHost:
         patterns:
           - "Aspire.Hosting.AppHost"
-          - "Microsoft.AspNetCore.Components.WebAssembly.DevServer"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
