@@ -15,6 +15,7 @@ updates:
       AppHost:
         patterns:
           - "Aspire.Hosting.AppHost"
+          - "Microsoft.AspNetCore.Components.WebAssembly.DevServer"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
