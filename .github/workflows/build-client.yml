@@ -27,7 +27,7 @@ jobs:
           cd ..
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: wasm-client
           path: ./publish
